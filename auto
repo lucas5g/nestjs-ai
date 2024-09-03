@@ -1,5 +1,4 @@
 #!/bin/bash
-
 npm run lint 
 
 if [ "$?" != 0 ]; then 
@@ -7,6 +6,13 @@ if [ "$?" != 0 ]; then
   exit 
 fi
 
+npm run test
+
+if [ "$?" != 0 ]; then 
+  echo "Erro nos tests"
+  exit 
+fi
+
 git add .
-git commit -m "$2"
+git commit -m "$1"
 git push 
