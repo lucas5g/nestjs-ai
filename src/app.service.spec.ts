@@ -20,20 +20,20 @@ describe('AppService', () => {
     );
   }, 6000);
 
-  it.only('download yt', async () => {
+  it('download yt', async () => {
     const url = 'https://www.youtube.com/watch?v=Dn8vzTsnPps';
     const res = await service.download(url);
     expect(res).toBeDefined();
   });
 });
-// describe('App (e2e)', () => {
-//   const url = 'http://localhost:3001';
+describe('App (e2e)', () => {
+  const url = 'http://localhost:3001';
 
-//   it('/download (POST)', async () => {
-//     const res = await request(url)
-//       .post('download')
-//       .send({
-//         url: 'https://www.youtube.com/watch?v=jHS1RJREG2Q'
-//       });
-//   });
-// })
+  it.only('/download (POST)', async () => {
+    const res = await request(url)
+      .post('download')
+      .send({
+        url: 'https://www.youtube.com/watch?v=jHS1RJREG2Q'
+      });
+  });
+})
