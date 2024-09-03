@@ -18,7 +18,7 @@ export class AppController {
 
   @Get()
   home() {
-    return { api: 'Api estudos AI' };
+    return { api: 'Api estudos AI 18:29' };
   }
 
   @Post('/download')
@@ -29,7 +29,11 @@ export class AppController {
   }
 
   @Post('/transcribe')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      dest: './uploads',
+    }),
+  )
   transcribe(@UploadedFile() file: Express.Multer.File) {
     return this.appService.transcribe(file);
   }
