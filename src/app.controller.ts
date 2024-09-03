@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Res,
   UploadedFile,
@@ -14,6 +15,11 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+  @Get()
+  home() {
+    return { api: 'Api estudos AI' };
+  }
 
   @Post('/download')
   async download(@Body() downloadAppDto: DownloadAppDto, @Res() res: Response) {

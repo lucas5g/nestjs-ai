@@ -1,0 +1,12 @@
+#!/bin/bash
+
+npm run lint 
+
+if [ "$?" != 0 ]; then 
+  echo "Erro no lint"
+  exit 
+fi
+
+git add .
+git commit -m "$2"
+git push 
