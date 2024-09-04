@@ -32,6 +32,7 @@ export class AppService {
     await youtubeDl.exec(url, {
       format: 'best',
       output: pathFile,
+      verbose: true,
     });
 
     return pathFile;
