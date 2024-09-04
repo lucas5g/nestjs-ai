@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  HttpCode,
+  HttpStatus,
   Post,
   Res,
   UploadedFile,
@@ -8,9 +10,14 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AppService } from './app.service';
-import { DownloadAppDto, TranscribeAppDto } from '@/dto/app.dto';
+import { DownloadAppDto, Transcribe, TranscribeAppDto } from '@/dto/app.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiExcludeEndpoint } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiExcludeEndpoint,
+  ApiResponse,
+} from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
@@ -25,10 +32,16 @@ export class AppController {
   }
 
   @Post('/transcribe')
-  @ApiConsumes('muiltipart/form-data')
+  @HttpCode(HttpStatus.OK)
+  @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'List of cats',
+    // description: 'List of cats',
     type: TranscribeAppDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Transcrição do aúdio/vídeo',
+    type: Transcribe,
   })
   @UseInterceptors(
     FileInterceptor('file', {

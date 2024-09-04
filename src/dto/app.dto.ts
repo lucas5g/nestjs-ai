@@ -14,3 +14,8 @@ export class TranscribeAppDto {
   })
   file: any;
 }
+
+export class Transcribe {
+  @ApiProperty()
+  text: string;
+}
