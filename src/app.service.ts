@@ -1,6 +1,5 @@
 import Groq from 'groq-sdk';
 import * as youtubeDl from 'youtube-dl-exec';
-import { put } from '@vercel/blob';
 
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as fs from 'fs';
@@ -16,17 +15,16 @@ export class AppService {
       apiKey: env.GROQ_API_KEY,
     });
 
-    fs.renameSync(file.path, file.originalname);
-
+    const filePath = `${file.path}.${file.originalname.split('.').at(-1)}`;
+    fs.renameSync(file.path, filePath);
     const transcription = await groq.audio.transcriptions.create({
-      file: fs.createReadStream(file.originalname),
+      file: fs.createReadStream(filePath),
       model: 'whisper-large-v3',
       // response_format: 'verbose_json',
     });
+
+    fs.rmSync(filePath);
     return transcription;
-
-    // fs.rmSync(filePath);
-
   }
 
   async download({ url }: DownloadAppDto) {
