@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
   Post,
   Res,
   UploadedFile,
@@ -9,19 +8,16 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AppService } from './app.service';
-import { DownloadAppDto } from '@/dto/app.dto';
+import { DownloadAppDto, TranscribeAppDto } from '@/dto/app.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiExcludeEndpoint } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  home() {
-    return { api: 'Api estudos AI 18:29' };
-  }
-
   @Post('/download')
+  @ApiExcludeEndpoint()
   async download(@Body() downloadAppDto: DownloadAppDto, @Res() res: Response) {
     const filePath = await this.appService.download(downloadAppDto);
 
@@ -29,6 +25,11 @@ export class AppController {
   }
 
   @Post('/transcribe')
+  @ApiConsumes('muiltipart/form-data')
+  @ApiBody({
+    description: 'List of cats',
+    type: TranscribeAppDto,
+  })
   @UseInterceptors(
     FileInterceptor('file', {
       dest: './uploads',
