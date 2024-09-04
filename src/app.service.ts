@@ -29,12 +29,17 @@ export class AppService {
 
   async download({ url }: DownloadAppDto) {
     const pathFile = `./uploads/${url.split('=')[1]}.mp4`;
-    await youtubeDl.exec(url, {
-      format: 'best',
-      output: pathFile,
-      verbose: true,
-    });
+    try {
+      await youtubeDl.exec(url, {
+        format: 'best',
+        output: pathFile,
+        verbose: true,
+      });
 
-    return pathFile;
+      return pathFile;
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException('Não foi possível relaizar o download');
+    }
   }
 }
