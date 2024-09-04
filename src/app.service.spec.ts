@@ -11,12 +11,11 @@ describe('App (e2e)', () => {
     expect(body).toBeTruthy();
   });
 
-  it.only('/transcribe (POST)', async () => {
+  it('/transcribe (POST)', async () => {
     const { body } = await request(url)
       .post('/transcribe')
-      .attach('file', __dirname + '/uploads/test.mp4');
+      .attach('file', __dirname + '/test.mp4');
 
-    console.log(body)
-    // expect(Object.keys(body)).toEqual(['text', 'x_groq']);
+    expect(Object.keys(body)).toEqual(['text', 'x_groq']);
   }, 10000);
 });
