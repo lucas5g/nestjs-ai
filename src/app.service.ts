@@ -17,10 +17,10 @@ export class AppService {
 
     const filePath = `${file.path}.${file.originalname.split('.').at(-1)}`;
     fs.renameSync(file.path, filePath);
+
     const transcription = await groq.audio.transcriptions.create({
       file: fs.createReadStream(filePath),
       model: 'whisper-large-v3',
-      // response_format: 'verbose_json',
     });
 
     fs.rmSync(filePath);
