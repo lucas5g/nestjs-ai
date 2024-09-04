@@ -28,7 +28,7 @@ export class AppService {
   }
 
   async download({ url }: DownloadAppDto) {
-    const pathFile = `${__dirname}/uploads/${url.split('=')[1]}.mp4`;
+    const pathFile = `./uploads/${url.split('=')[1]}.mp4`;
     await youtubeDl.exec(url, {
       format: 'best',
       output: pathFile,
