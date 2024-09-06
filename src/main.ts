@@ -12,9 +12,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Nestjs AI')
-    .setDescription(
-      'API para realizar gerar aplições com modelos AI generativas',
-    )
+    .setDescription('API para Integração com Modelos de IA')
     .setVersion(version)
     .build();
   const document = SwaggerModule.createDocument(app, config);

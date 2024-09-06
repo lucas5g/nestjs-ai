@@ -21,6 +21,8 @@ export class AppService {
     const transcription = await groq.audio.transcriptions.create({
       file: fs.createReadStream(filePath),
       model: 'whisper-large-v3',
+      // prompt:
+        // 'Caso o texto esteja em uma língua diferente do português, traduza para o português brasileiro',
     });
 
     fs.rmSync(filePath);
